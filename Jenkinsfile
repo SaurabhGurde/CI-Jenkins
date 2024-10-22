@@ -29,7 +29,7 @@ pipeline {
     stages {
         stage('BUILD') {
             steps {
-                sh 'mvn clean install -DskipTests'
+                sh 'mvn -s setting.xml clean install -DskipTests'
             }
             post {
                 success {
@@ -41,19 +41,19 @@ pipeline {
 
         stage('UNIT TEST') {
             steps {
-                sh 'mvn test'
+                sh 'mvn -s setting.xml test'
             }
         }
 
         stage('INTEGRATION TEST') {
             steps {
-                sh 'mvn verify -DskipUnitTests'
+                sh 'mvn -s setting.xml verify -DskipUnitTests'
             }
         }
 
         stage('CODE ANALYSIS WITH CHECKSTYLE') {
             steps {
-                sh 'mvn checkstyle:checkstyle'
+                sh 'mvn -s setting.xml checkstyle:checkstyle'
             }
             post {
                 success {
